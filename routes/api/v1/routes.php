@@ -8,4 +8,5 @@ Route::namespace('Api/V1')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
 
     Route::post('categories', [CategoryController::class, 'store']);
+    Route::get('categories/{category}', [CategoryController::class, 'show']);
 });
