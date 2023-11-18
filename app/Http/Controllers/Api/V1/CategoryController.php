@@ -37,16 +37,17 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category): JsonResponse
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:191|unique:categories,name,' . $category->id,
+            'rank' => 'required|integer|min:1',
+        ]);
+
+        $category->update($validated);
+        $category->refresh();
+
+        return response()->json($category);
     }
 
     /**
