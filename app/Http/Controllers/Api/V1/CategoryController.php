@@ -10,14 +10,10 @@ use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $categories = Category::get();
+        return response()->json($categories);
     }
 
     public function store(Request $request): JsonResponse
