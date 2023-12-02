@@ -28,17 +28,17 @@ class SubCategoryController extends Controller
         return response()->json($sub_category);
     }
 
-    public function show(Category $category, SubCategory $subCategory): JsonResponse
+    public function show(Category $category, $id): JsonResponse
     {
         $subCategory = $category->subCategories()
-            ->where('sub_categories.id', $subCategory->id)->firstOrFail();
+            ->where('sub_categories.id', $id)->firstOrFail();
         return response()->json($subCategory);
     }
 
-    public function update(Request $request, Category $category, SubCategory $subCategory): JsonResponse
+    public function update(Request $request, Category $category, $id): JsonResponse
     {
         $subCategory = $category->subCategories()
-            ->where('sub_categories.id', $subCategory->id)->firstOrFail();
+            ->where('sub_categories.id', $id)->firstOrFail();
 
         $validated = $request->validate([
             'name' => 'required|max:191|unique:categories,name,' . $category->id,
@@ -51,10 +51,10 @@ class SubCategoryController extends Controller
         return response()->json($subCategory);
     }
 
-    public function destroy(Category $category, SubCategory $subCategory): JsonResponse
+    public function destroy(Category $category, $id): JsonResponse
     {
         $subCategory = $category->subCategories()
-            ->where('sub_categories.id', $subCategory->id)->firstOrFail();
+            ->where('sub_categories.id', $id)->firstOrFail();
 
         $subCategory->delete();
         return response()->json(null, 204);
