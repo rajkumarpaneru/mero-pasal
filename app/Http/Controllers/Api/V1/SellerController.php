@@ -21,6 +21,9 @@ class SellerController extends Controller
     public function store(StoreSellerRequest $request): JsonResponse
     {
         $validated = $request->validated();
+        $validated['user_id'] = $request->user()->id;
+        $validated['verified_at'] = null;
+        $validated['status'] = 'pending';
         $seller = $this->sellerService->store($validated);
         $response = SellerResource::make($seller);
 

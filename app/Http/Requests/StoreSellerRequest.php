@@ -13,7 +13,7 @@ class StoreSellerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreSellerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'min:2', 'max:191'],
+            'address' => ['required', 'string', 'min:2', 'max:191'],
+            'registration_type' => ['required', 'string', 'max:191'],
+            'registration_number' => ['required', 'string', 'max:191'],
         ];
     }
 }

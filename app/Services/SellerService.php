@@ -7,8 +7,8 @@ use App\Models\Seller;
 class SellerService
 {
 
-    public function store($validated): Seller
+    public function store(array $validated): Seller
     {
-        return Seller::first();
+        return Seller::create($validated);
     }
 }
