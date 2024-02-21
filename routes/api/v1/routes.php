@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\SubCategoryController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\SellerController;
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api/V1')->group(function () {
@@ -25,4 +26,7 @@ Route::namespace('Api/V1')->group(function () {
         [SubCategoryController::class, 'update']);
     Route::delete('categories/{category}/sub-categories/{subCategory}',
         [SubCategoryController::class, 'destroy']);
+
+    //sellers
+    Route::post('sellers', [SellerController::class, 'store']);
 });
