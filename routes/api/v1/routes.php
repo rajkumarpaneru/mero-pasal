@@ -31,4 +31,11 @@ Route::namespace('Api/V1')->group(function () {
     Route::post('sellers', [SellerController::class, 'store']);
 
     Route::post('sellers/{seller}', [SellerController::class, 'update']);
+
+    Route::get('sellers/{seller}', [SellerController::class, 'show']);
+
+    Route::get('sellers', [SellerController::class, 'index']);
+
+    Route::delete('sellers/{seller}', [SellerController::class, 'destroy']);
+
 });

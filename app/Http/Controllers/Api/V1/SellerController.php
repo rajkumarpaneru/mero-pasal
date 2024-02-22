@@ -20,6 +20,15 @@ class SellerController extends Controller
         $this->sellerService = $sellerService;
     }
 
+    public function index(): JsonResponse
+    {
+        $sellers = Seller::query()->paginate(10);
+
+        $response = SellerResource::collection($sellers);
+
+        return response()->json($response);
+    }
+
     public function store(StoreSellerRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -41,5 +50,19 @@ class SellerController extends Controller
         $response = SellerResource::make($seller->refresh());
 
         return response()->json($response);
+    }
+
+    public function show(Seller $seller): JsonResponse
+    {
+        $response = SellerResource::make($seller);
+
+        return response()->json($response);
+    }
+
+    public function destroy(Seller $seller): JsonResponse
+    {
+        $seller->delete();
+
+        return response()->json(null);
     }
 }
