@@ -11,4 +11,9 @@ class SellerService
     {
         return Seller::create($validated);
     }
+
+    public function update(Seller $seller, array $validated): bool
+    {
+        return $seller->update($validated);
+    }
 }

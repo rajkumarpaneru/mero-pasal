@@ -29,4 +29,6 @@ Route::namespace('Api/V1')->group(function () {
 
     //sellers
     Route::post('sellers', [SellerController::class, 'store']);
+
+    Route::post('sellers/{seller}', [SellerController::class, 'update']);
 });
