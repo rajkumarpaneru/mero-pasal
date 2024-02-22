@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class RoleSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Run the database seeds.
      *
