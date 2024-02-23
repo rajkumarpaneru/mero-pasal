@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Resources\SubCategoryResource;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class SubCategoryController extends Controller
+class SubCategoryController extends BaseController
 {
     public function index(Category $category): JsonResponse
     {
-        $sub_categories = $category->subCategories;
-        return response()->json($sub_categories);
+        $subCategories = $category->subCategories;
+        $response = SubCategoryResource::collection($subCategories);
+        return $this->successResponse('Sub categories retrieved successfully.', $response);
     }
 
     public function store(Category $category, Request $request): JsonResponse
@@ -22,16 +23,18 @@ class SubCategoryController extends Controller
             'rank' => 'required|integer|min:1',
         ]);
 
-        $sub_category = $category->subCategories()->create($validated);
+        $subCategory = $category->subCategories()->create($validated);
 
-        return response()->json($sub_category);
+        $response = SubCategoryResource::make($subCategory);
+        return $this->successResponse('Sub category stored successfully.', $response);
     }
 
     public function show(Category $category, $id): JsonResponse
     {
         $subCategory = $category->subCategories()
             ->where('sub_categories.id', $id)->firstOrFail();
-        return response()->json($subCategory);
+        $response = SubCategoryResource::make($subCategory);
+        return $this->successResponse('Sub category retrieved successfully.', $response);
     }
 
     public function update(Request $request, Category $category, $id): JsonResponse
@@ -45,9 +48,9 @@ class SubCategoryController extends Controller
         ]);
 
         $subCategory->update($validated);
-        $subCategory->refresh();
 
-        return response()->json($subCategory);
+        $response = SubCategoryResource::make($subCategory->refresh());
+        return $this->successResponse('Sub category updated successfully.', $response);
     }
 
     public function destroy(Category $category, $id): JsonResponse
@@ -56,6 +59,6 @@ class SubCategoryController extends Controller
             ->where('sub_categories.id', $id)->firstOrFail();
 
         $subCategory->delete();
-        return response()->json(null, 204);
+        return $this->successResponse('Sub category deleted successfully.', null);
     }
 }
