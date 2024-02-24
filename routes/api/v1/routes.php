@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\SubCategoryController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BrandController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SellerController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,8 @@ Route::namespace('Api/V1')->group(function () {
     Route::post('brands/{brand}', [BrandController::class, 'update']);
     Route::delete('brands/{brand}', [BrandController::class, 'destroy']);
 
+    //products
+    Route::get('products/{product}', [ProductController::class, 'show']);
 
     //sellers
     Route::post('sellers', [SellerController::class, 'store']);
