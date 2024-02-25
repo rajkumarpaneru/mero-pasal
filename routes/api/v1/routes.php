@@ -37,6 +37,7 @@ Route::namespace('Api/V1')->group(function () {
     Route::delete('brands/{brand}', [BrandController::class, 'destroy']);
 
     //products
+    Route::post('products', [ProductController::class, 'store']);
     Route::get('products/{product}', [ProductController::class, 'show']);
 
     //sellers
