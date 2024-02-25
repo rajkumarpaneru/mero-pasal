@@ -29,6 +29,9 @@ class StoreProductRequest extends FormRequest
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
             'brand_id' => ['required', 'exists:brands,id'],
             'descriptions' => ['nullable', 'max:5000'],
+
+            'product_features' => ['nullable', 'array', 'min:1', 'max:50'],
+            'product_features.*.feature' => ['required', 'string', 'max:1000']
         ];
     }
 }
