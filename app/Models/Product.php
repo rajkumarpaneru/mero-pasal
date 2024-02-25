@@ -26,4 +26,15 @@ class Product extends Model
         return $this->hasMany(ProductFeature::class, 'product_id', 'id')
             ->orderBy('product_features.rank', 'ASC');
     }
+
+    public function getPriceAttribute($value)
+    {
+        return number_format($value / 100, 2);
+    }
+
+    public function setPriceAttribute($value)
+    {
+        $this->attributes['price'] = (int)($value * 100);
+    }
+
 }
