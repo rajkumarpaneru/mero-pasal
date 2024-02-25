@@ -30,7 +30,7 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'price' => $this->price,
             'description' => $this->description,
-            'features' => $this->features,
+            'features' => ProductFeatureResource::collection($this->features),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
