@@ -19,6 +19,15 @@ class ProductController extends BaseController
         $this->productService = $productService;
     }
 
+    public function index(): JsonResponse
+    {
+        $products = Product::query()->paginate(10);
+
+        $response = ProductResource::collection($products);
+
+        return $this->successResponse("Products listed successfully.", $response);
+    }
+
     public function store(StoreProductRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -44,5 +53,11 @@ class ProductController extends BaseController
         $response = ProductResource::make($product->refresh());
 
         return $this->successResponse("Product updated successfully.", $response);
+    }
+
+    public function destroy(Product $product): JsonResponse
+    {
+        $product->delete();
+        return $this->successResponse('Product deleted successfully.');
     }
 }

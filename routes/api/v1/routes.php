@@ -37,9 +37,11 @@ Route::namespace('Api/V1')->group(function () {
     Route::delete('brands/{brand}', [BrandController::class, 'destroy']);
 
     //products
+    Route::get('products', [ProductController::class, 'index']);
     Route::post('products', [ProductController::class, 'store']);
     Route::get('products/{product}', [ProductController::class, 'show']);
     Route::post('products/{product}', [ProductController::class, 'update']);
+    Route::delete('products/{product}', [ProductController::class, 'destroy']);
 
     //sellers
     Route::post('sellers', [SellerController::class, 'store']);
