@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Services\ProductService;
@@ -29,9 +30,19 @@ class ProductController extends BaseController
         return $this->successResponse("Product created successfully.", $response);
     }
 
-    public function show(Product $product)
+    public function show(Product $product): JsonResponse
     {
         $response = ProductResource::make($product);
         return $this->successResponse("Product retrieved successfully.", $response);
+    }
+
+    public function update(Product $product, UpdateProductRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
+        $this->productService->update($product, $validated);
+
+        $response = ProductResource::make($product->refresh());
+
+        return $this->successResponse("Product updated successfully.", $response);
     }
 }

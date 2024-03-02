@@ -39,6 +39,7 @@ Route::namespace('Api/V1')->group(function () {
     //products
     Route::post('products', [ProductController::class, 'store']);
     Route::get('products/{product}', [ProductController::class, 'show']);
+    Route::post('products/{product}', [ProductController::class, 'update']);
 
     //sellers
     Route::post('sellers', [SellerController::class, 'store']);
