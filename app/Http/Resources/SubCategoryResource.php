@@ -19,10 +19,7 @@ class SubCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'category' => [
-                'id' => $this->category->id,
-                'name' => $this->category->name
-            ],
+            'category' => NameResource::make($this->category),
             'name' => $this->name
         ];
     }

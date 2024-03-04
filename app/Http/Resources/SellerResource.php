@@ -19,10 +19,7 @@ class SellerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-            ],
+            'user' => NameResource::make($this->user),
             'name' => $this->name,
             'address' => $this->address,
             'registration_type' => $this->registration_type,

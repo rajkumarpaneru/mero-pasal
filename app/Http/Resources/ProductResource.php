@@ -19,18 +19,9 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'sub_category' => [
-                'id' => $this->sub_category->id,
-                'name' => $this->sub_category->name,
-            ],
-            'brand' => [
-                'id' => $this->brand->id,
-                'name' => $this->brand->name
-            ],
-            'seller' => [
-                'id' => $this->seller->id,
-                'name' => $this->seller->name
-            ],
+            'sub_category' => NameResource::make($this->sub_category),
+            'brand' => NameResource::make($this->brand),
+            'seller' => NameResource::make($this->seller),
             'name' => $this->name,
             'price' => $this->price,
             'description' => $this->description,
