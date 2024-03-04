@@ -37,4 +37,9 @@ class Product extends Model
         $this->attributes['price'] = (int)($value * 100);
     }
 
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'seller_id', 'id');
+    }
+
 }
