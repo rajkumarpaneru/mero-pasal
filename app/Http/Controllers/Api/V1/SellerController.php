@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseController;
 use App\Http\Requests\StoreSellerRequest;
 use App\Http\Requests\UpdateSellerRequest;
 use App\Http\Resources\SellerResource;
 use App\Models\Seller;
 use App\Services\SellerService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
-class SellerController extends Controller
+class SellerController extends BaseController
 {
     private $sellerService;
 
@@ -26,7 +25,7 @@ class SellerController extends Controller
 
         $response = SellerResource::collection($sellers);
 
-        return response()->json($response);
+        return $this->successResponse("Sellers listed successfully.", $response);
     }
 
     public function store(StoreSellerRequest $request): JsonResponse
@@ -38,7 +37,7 @@ class SellerController extends Controller
         $seller = $this->sellerService->store($validated);
         $response = SellerResource::make($seller);
 
-        return response()->json($response);
+        return $this->successResponse("Seller stored successfully.", $response);
     }
 
     public function update(Seller $seller, UpdateSellerRequest $request): JsonResponse
@@ -49,20 +48,20 @@ class SellerController extends Controller
 
         $response = SellerResource::make($seller->refresh());
 
-        return response()->json($response);
+        return $this->successResponse("Seller updated successfully.", $response);
     }
 
     public function show(Seller $seller): JsonResponse
     {
         $response = SellerResource::make($seller);
 
-        return response()->json($response);
+        return $this->successResponse("Seller retrieved successfully.", $response);
     }
 
     public function destroy(Seller $seller): JsonResponse
     {
         $seller->delete();
 
-        return response()->json(null);
+        return $this->successResponse("Seller deleted successfully.", null);
     }
 }
