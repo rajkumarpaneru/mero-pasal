@@ -31,6 +31,7 @@ class ProductController extends BaseController
     public function store(StoreProductRequest $request): JsonResponse
     {
         $validated = $request->validated();
+        $validated['seller_id'] = $request->user()->id;
 
         $product = $this->productService->store($validated);
 
